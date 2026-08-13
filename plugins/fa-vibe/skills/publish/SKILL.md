@@ -24,10 +24,13 @@ with a `--base=/…` path is an FA app.
 | How long | Minutes | Days, with review |
 | Seen by | Journalists signed into JB | Finansavisen's readers |
 
-**FA app?** Everything below about the app platform does not apply. Do the
-pre-flight checks, then open a DevOps ticket with: repo URL, branch, container
-port `3000`, the public path it should serve at, the env vars it needs (values
-sent privately, never in the ticket), and whether it sits behind Zephr. Tell the
+**JB app?** You can do it yourself — load the `deploy` skill. Everything below
+about pre-flight still applies; `deploy` covers the API calls.
+
+**FA app?** None of the app-platform machinery applies. Do the pre-flight
+checks, then open a DevOps ticket with: repo URL, branch, container port
+`3000`, the public path it should serve at, the env vars it needs (values sent
+privately, never in the ticket), and whether it sits behind Zephr. Tell the
 journalist plainly: *"This one goes live on finansavisen.no, so the platform
 team has to deploy it. I've prepared everything they need — it won't be
 instant."*
@@ -66,7 +69,7 @@ If any step fails, fix it before continuing. Do not deploy a red build hoping th
 
 ## First deploy — one-time setup
 
-The app has to be registered on the platform before it can deploy. **You cannot do this yourself** — the platform owner does it. Ask them for:
+For an **FA app**, the platform team registers and deploys it. Give them:
 
 | What | Value |
 |---|---|

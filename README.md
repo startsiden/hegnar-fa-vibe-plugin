@@ -28,7 +28,8 @@ Then start your app with:
 | `working-with-journalists` | Tone, vocabulary, and the platform rules that hold for every template |
 | `new-project` | Start a new app from a template |
 | `add-database` | Store data that survives a redeploy |
-| `publish` | Get it live — routes JB apps vs FA apps |
+| `publish` | Decides the route: JB app self-serve, or FA app via DevOps |
+| `deploy` | Put a JB app live, and push updates to it |
 
 Stack-specific skills — pages, styling, interactivity, the Zephr header,
 local tooling, saving — stay in each **template's** own `skills/` directory, because
