@@ -1,0 +1,14 @@
+{
+  "name": "fa-vibe",
+  "owner": {
+    "name": "Finansavisen / Profico"
+  },
+  "plugins": [
+    {
+      "name": "fa-vibe",
+      "source": "./plugins/fa-vibe",
+      "description": "Build and publish small Finansavisen web apps, for journalists who aren't developers."
+    }
+  ],
+  "description": "Claude Code plugins for Finansavisen journalists building small web apps on the FA app platform."
+}
