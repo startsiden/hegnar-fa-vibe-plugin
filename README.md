@@ -13,7 +13,13 @@ template, keeps the app on-brand, and gets it onto the FA app platform at
 /plugin install fa-vibe@fa-vibe
 ```
 
-Then just say what you want to build.
+Then start your app with:
+
+```
+/fa-vibe:new-project
+```
+
+**Type that command.** Don't just describe what you want — see below.
 
 ## What's in it
 
@@ -35,6 +41,25 @@ of which template an app came from.
 Registered in `skills/new-project/SKILL.md`. Today there's one — `fa-astro`
 ([vibecode-template](https://github.com/startsiden/vibecode-template)). Adding
 another is a row in that table, not a fork of the plugin.
+
+## Start with the command, not a description
+
+Skills are *model-invoked*: Claude decides whether a description matches what
+you asked. Measured behaviour (print mode, `--plugin-dir`, `Skill` allowed):
+
+| Prompt | Result |
+|---|---|
+| `/fa-vibe:new-project I want a stock movers tool` | ✅ asks JB vs FA vs backend, then the bootstrap questions |
+| `I want to build a little tool that shows which stocks moved the most today` | ❌ wrote a Python CLI using yfinance — wrong stack, wrong platform, undeployable |
+
+The second was retried with a `MUST be used before writing any code…`
+description and behaved the same. So **the slash command is the contract**, and
+the failure is quiet: you get a confident, working, completely unusable app.
+
+Once a project exists this matters less — the template's `AGENTS.md` is read
+automatically and pins the stack. It's the *first* step, before any repo exists,
+that depends on the journalist typing the command. Put it in the onboarding
+message, not just here.
 
 ## Notes for maintainers
 

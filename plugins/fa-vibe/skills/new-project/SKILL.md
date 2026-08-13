@@ -1,5 +1,5 @@
 ---
-description: Start a new Finansavisen app from an approved template. Use when the journalist says they want to build something new, start a project, make an app or a tool, or when they describe an idea and have no project on disk yet.
+description: MUST be used before writing any code for a new Finansavisen app or tool. Triggers on any request to build, make, create, or start an app, tool, page, dashboard, tracker, or widget — however small it sounds. Also when the user describes an idea and there is no project on disk yet. Without it the wrong stack gets chosen and the result cannot be deployed to Finansavisen at all.
 ---
 
 # Start a new Finansavisen app
