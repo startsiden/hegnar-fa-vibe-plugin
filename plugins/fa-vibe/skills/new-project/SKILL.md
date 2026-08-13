@@ -17,26 +17,24 @@ decision is hard to reverse later, so get it right before cloning anything.
 | **FA app** | Finansavisen readers, public or paywalled | `finansavisen.no/<path>` on OKD — **needs a DevOps deployment**, not self-serve | `startsiden/vibecode-template` |
 | **Backend app** | Nothing visual — an API or service | Not yet defined | ⚠️ **Not available yet** |
 
-### How to tell which
+### Just ask
 
-Ask the journalist, in their words:
+> "Where should this live?
+> 1. **Inside JournalistBoost** — for the newsroom, and I can put it live myself
+> 2. **On finansavisen.no** — for readers, and the platform team deploys it
+> 3. **Neither — it's a backend service** with no pages"
 
-> "Two things that decide how we build this:
-> 1. **Who's it for — just people in the newsroom, or Finansavisen's readers?**
-> 2. **Is it a page people look at, or something that runs in the background?**"
+Take the answer at face value; they know which system they're building for.
 
-Then route:
-
-- **Newsroom only** → JB app. This is the common case, and the good one: you can
-  publish it yourself, it's behind the JB login already, and nobody needs a
-  ticket. Prefer it whenever the answer is ambiguous.
-- **Readers / public / needs the Finansavisen header or paywall** → FA app. Warn
-  them up front: *"That one lives on finansavisen.no, so the platform team has to
-  put it live — it's not instant, and there's a review."*
-- **Background service, API, data job, no pages** → Backend app. **Stop.** The
-  NestJS template doesn't exist yet. Tell them: *"That's not something I can
-  start yet — the team is still setting up the template for it. Worth asking
-  them directly."* Don't improvise a backend from scratch.
+- **1 → JB app.** The good case: self-serve, live in minutes, already behind the
+  JB login. If they hesitate or say "not sure", pick this one — it's cheap and
+  reversible, and an FA app can be made from it later.
+- **2 → FA app.** Say up front: *"That one lives on finansavisen.no, so the
+  platform team has to put it live — it's not instant, and there's a review."*
+- **3 → Backend app. Stop.** The NestJS template doesn't exist yet. Tell them:
+  *"That's not something I can start yet — the team is still setting up the
+  template for it. Worth asking them directly."* Don't improvise a backend from
+  scratch.
 
 ### What differs beyond the URL
 
