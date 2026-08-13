@@ -74,35 +74,20 @@ deployment record's `logs` field is usually null and tells you nothing.
 
 ## First deploy of a new app
 
-The app has to be registered once. Repo access is the part that needs the
-platform team, unless Coolify's GitHub App is already installed on the org — if
-it is, skip step 1.
+The app has to be registered once. **Repo access needs nothing** — Coolify's
+GitHub App (`jb-vibe-apps`) is installed on the `startsiden` org, so it can
+already read the journalist's repo. No key generation, no `gh`, no repo admin.
 
-**1. Repo access (private repos, no GitHub App)**
-
-Needs `gh` and admin on the repo. If the journalist doesn't have both, stop and
-ask the platform team to register the app — don't hand them a key generation
-they can't verify.
-
-```bash
-ssh-keygen -t ed25519 -N '' -C 'coolify' -f /tmp/dk -q
-curl -s -X POST -H "Authorization: Bearer $TOKEN" -H "Content-Type: application/json" \
-  -d "$(python3 -c 'import json;print(json.dumps({"name":"<app>-deploy-key","private_key":open("/tmp/dk").read()}))')" \
-  "$BASE/security/keys"                      # returns the private_key_uuid
-gh repo deploy-key add /tmp/dk.pub --repo <org>/<repo> --title "coolify (read-only)"
-rm -f /tmp/dk /tmp/dk.pub                    # Coolify holds it now
-```
-
-**2. Create the application**
+**1. Create the application**
 
 ```json
-POST /applications/private-deploy-key
+POST /applications/private-github-app
 {
   "project_uuid": "qyosn147ypl5calgk2ewgfef",
   "server_uuid": "rn7g9kv8rvqye0v1aendt2p7",
   "environment_name": "production",
-  "private_key_uuid": "<from step 1>",
-  "git_repository": "git@github.com:<org>/<repo>.git",
+  "github_app_uuid": "mvuhbeup3xydp6glzbtvbb7s",
+  "git_repository": "startsiden/<repo>",
   "git_branch": "<branch>",
   "build_pack": "dockerfile",
   "dockerfile_location": "/Dockerfile",
@@ -113,9 +98,15 @@ POST /applications/private-deploy-key
 }
 ```
 
+Note `git_repository` is `owner/repo` here, **not** an SSH URL — that form is
+only for the deploy-key route.
+
 Keep `instant_deploy: false` — env vars must exist before the first build.
 
-**3. Environment variables** — one `POST /applications/{uuid}/envs` per variable,
+If the repo lives outside the `startsiden` org the GitHub App can't see it. Stop
+and ask the platform team rather than generating keys.
+
+**2. Environment variables** — one `POST /applications/{uuid}/envs` per variable,
 body `{"key":…,"value":…,"is_preview":false}`. Always set:
 
 ```
@@ -129,7 +120,7 @@ not a source of real values. A placeholder key and a `dev-` URL copied straight
 from `.env.example` is exactly how the stock monitor shipped unable to fetch any
 data.
 
-**4. Persistent storage**, only if the app stores files:
+**3. Persistent storage**, only if the app stores files:
 
 ```json
 POST /applications/{uuid}/storages
@@ -139,7 +130,7 @@ POST /applications/{uuid}/storages
 `type` **must** be `"persistent"`. `volume`, `bind`, `directory` and `file` are
 all rejected, and the error doesn't tell you the valid value.
 
-**5. Deploy**, as above.
+**4. Deploy**, as above.
 
 ## Stay inside your lane
 

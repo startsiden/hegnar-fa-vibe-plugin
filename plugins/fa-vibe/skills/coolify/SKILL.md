@@ -23,6 +23,10 @@ reason about it as Coolify rather than as a bespoke system, and check
 | Apps served at | `<app-name>.apps.journalistboost.ai` (wildcard DNS, so new apps need no DNS work) |
 | Proxy | Traefik, on 80/443, issuing Let's Encrypt certs per hostname |
 
+Repo access is a **GitHub App**, `jb-vibe-apps`, installed on the `startsiden`
+org — uuid `mvuhbeup3xydp6glzbtvbb7s`. Any repo in that org can be deployed with
+no per-repo key. `GET /github-apps` lists sources.
+
 Auth is a bearer token: `Authorization: Bearer $(cat ~/.fa-vibe/token)`. See the
 `deploy` skill for how it's stored and its scope limits.
 
