@@ -6,15 +6,70 @@ description: Start a new Finansavisen app from an approved template. Use when th
 
 The person you're working with is a **journalist, not a developer**. They speak product, not code. Never show them a stack trace, never ask them to pick a framework, and never explain git.
 
-## Templates
+## Which kind of app — decide this first
 
-Pick from this list. Don't invent a stack, and don't start from an empty directory.
+Three paths. They differ in **who sees the app** and **where it runs**, and that
+decision is hard to reverse later, so get it right before cloning anything.
 
-| Template | Use when | Repo |
+| Path | Who sees it | Where it runs | Template |
+|---|---|---|---|
+| **JB app** | Journalists only, signed into JournalistBoost | `<name>.apps.journalistboost.ai` — self-serve, live in minutes | `startsiden/vibecode-template` |
+| **FA app** | Finansavisen readers, public or paywalled | `finansavisen.no/<path>` on OKD — **needs a DevOps deployment**, not self-serve | `startsiden/vibecode-template` |
+| **Backend app** | Nothing visual — an API or service | Not yet defined | ⚠️ **Not available yet** |
+
+### How to tell which
+
+Ask the journalist, in their words:
+
+> "Two things that decide how we build this:
+> 1. **Who's it for — just people in the newsroom, or Finansavisen's readers?**
+> 2. **Is it a page people look at, or something that runs in the background?**"
+
+Then route:
+
+- **Newsroom only** → JB app. This is the common case, and the good one: you can
+  publish it yourself, it's behind the JB login already, and nobody needs a
+  ticket. Prefer it whenever the answer is ambiguous.
+- **Readers / public / needs the Finansavisen header or paywall** → FA app. Warn
+  them up front: *"That one lives on finansavisen.no, so the platform team has to
+  put it live — it's not instant, and there's a review."*
+- **Background service, API, data job, no pages** → Backend app. **Stop.** The
+  NestJS template doesn't exist yet. Tell them: *"That's not something I can
+  start yet — the team is still setting up the template for it. Worth asking
+  them directly."* Don't improvise a backend from scratch.
+
+### What differs beyond the URL
+
+| | JB app | FA app |
 |---|---|---|
-| `fa-astro` *(default)* | Almost everything: pages, dashboards, lists, forms, small tools, anything shown to readers or colleagues | `https://github.com/startsiden/vibecode-template` |
+| Login | JournalistBoost, automatic — never build one | Zephr / paywall at the CDN edge |
+| The FA header | Don't add it — Zephr isn't in front of this domain and the markers stay bare | `add-zephr-header` skill |
+| Publishing | Self-serve, minutes | DevOps ticket, wait |
+| Served at | A subdomain root | A path like `/verktoy/<name>`, so the build needs a base path |
 
-If nothing fits what they're describing, say so and stop. Ask them to check with the platform team rather than improvising a stack — an app off-template can't be deployed by the normal route.
+**Never mix them up.** Copying Zephr cookie checks into a JB app locks out every
+journalist — that cookie doesn't exist on `journalistboost.ai`. Building a JB-style
+app for readers leaves it behind the wrong login.
+
+### Worked example of both
+
+`startsiden/hegnar-fa-stock-monitor` is the same app built both ways, so the
+difference is a diff you can read:
+
+- `master` → **FA app**: Zephr/`blaize_session` auth, `allowedDomains` for
+  `**.finansavisen.no`, built with `--base=/verktoy/stock-monitor`, deployed to
+  OKD by DevOps.
+- `feat/fa-apps-platform` → **JB app**: Zephr auth deleted, JB `check-session`
+  instead, `allowedDomains` for `**.journalistboost.ai`, no base path, deployed
+  to Coolify.
+
+Converting between them touches exactly four things: the auth middleware, the
+`allowedDomains` list, the build's base path, and the deploy target. If you find
+yourself changing more than that, stop and re-read the diff.
+
+If what they describe fits none of the three, say so and stop. Ask them to check
+with the platform team rather than improvising a stack — an app off-template
+can't be deployed by the normal route.
 
 ## Step 1 — Understand what they want
 

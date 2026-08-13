@@ -1,16 +1,38 @@
 ---
-description: Going live on the FA app platform. journalist says 'deploy', 'publish', 'go live', 'put it online', 'release', 'share it with the team'
+description: Get a Finansavisen app live — self-serve on the app platform for JB apps, or a DevOps handoff for FA apps. Use when the journalist says deploy, publish, go live, put it online, release, or share it with the team.
 ---
 
-# skills/deploy.md — Going live on the FA app platform
+# Going live
 
 **When to load**: journalist says "deploy", "publish", "go live", "put it online", "release", "share it with the team".
 
-**Goal**: get their app onto the FA app platform at `<app-name>.apps.journalistboost.ai`, where colleagues can find it in the app catalogue.
-
-**How it works in one sentence**: the platform watches their GitHub repo, and every save rebuilds and redeploys the app automatically.
+**Goal**: get the app in front of the people it's for — which means two different routes depending on whether it's a JB app or an FA app. Check that first.
 
 ---
+
+## Which route — check before doing anything
+
+Publishing works completely differently depending on what kind of app this is.
+If you don't know, look at the project: an app whose middleware checks
+JournalistBoost is a JB app; one that checks Zephr / `blaize_session` and builds
+with a `--base=/…` path is an FA app.
+
+| | JB app | FA app |
+|---|---|---|
+| Lives at | `<name>.apps.journalistboost.ai` | `finansavisen.no/<path>` |
+| Who publishes | Self-serve — the platform builds from GitHub on every save | **Profico DevOps**, via a ticket |
+| How long | Minutes | Days, with review |
+| Seen by | Journalists signed into JB | Finansavisen's readers |
+
+**FA app?** Everything below about the app platform does not apply. Do the
+pre-flight checks, then open a DevOps ticket with: repo URL, branch, container
+port `3000`, the public path it should serve at, the env vars it needs (values
+sent privately, never in the ticket), and whether it sits behind Zephr. Tell the
+journalist plainly: *"This one goes live on finansavisen.no, so the platform
+team has to deploy it. I've prepared everything they need — it won't be
+instant."*
+
+Then stop. Don't promise a date you don't control.
 
 ## Pre-flight — do all of this before deploying
 
