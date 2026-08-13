@@ -73,7 +73,7 @@ Run the `save` skill. If the push succeeds, the token and remote are both correc
 
 ## Step 7 — Check their machine
 
-Run the `tools-init` skill: Node 22, pnpm, git, and `pnpm dev` serving `http://localhost:3000`. Don't skip it. Windows machines frequently have stale PATH state after a fresh Node install, and the failure looks like nothing at all.
+Run the template's own `tools-init` skill (in the cloned project's `skills/`): Node 22, pnpm, git, and `pnpm dev` serving `http://localhost:3000`. Don't skip it. Windows machines frequently have stale PATH state after a fresh Node install, and the failure looks like nothing at all.
 
 ## Then
 
@@ -87,3 +87,7 @@ Tell them what they have, in their words:
 - ❌ Don't build a login. Apps on the platform sit behind the JournalistBoost login already — see the `publish` skill.
 - ❌ Don't use SQLite or write data to files. See `add-database`.
 - ❌ Don't explain git, npm, or the difference between a branch and a commit unless they ask.
+
+## After bootstrap
+
+Stack-specific work — pages, styling, interactivity, the Zephr header — is covered by the **template's own** `AGENTS.md` and `skills/` in the cloned project. Read them before building. This plugin only covers what's true for every template.

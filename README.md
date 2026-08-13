@@ -19,16 +19,16 @@ Then just say what you want to build.
 
 | Skill | For |
 |---|---|
+| `working-with-journalists` | Tone, vocabulary, and the platform rules that hold for every template |
 | `new-project` | Start a new app from a template |
-| `tools-init` | Check Node / pnpm / git and get it running locally |
-| `new-page` | Add a page |
-| `theme` | Colours and styling, within the FA identity |
-| `add-react` | Add interactivity, only where it's genuinely needed |
 | `add-database` | Store data that survives a redeploy |
-| `add-zephr-header` | The real Finansavisen header |
-| `rewrite-existing` | Bring an existing project onto the FA stack |
 | `save` | Save and publish changes |
 | `publish` | Get it live |
+
+Stack-specific skills — pages, styling, interactivity, the Zephr header,
+local tooling — stay in each **template's** own `skills/` directory, because
+they only make sense for that stack. The plugin holds what's true regardless
+of which template an app came from.
 
 ## Templates
 
