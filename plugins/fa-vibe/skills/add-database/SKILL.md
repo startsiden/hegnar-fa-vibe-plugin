@@ -29,7 +29,7 @@ If a file in the repo works, use the file. It's simpler, it's versioned, and the
 
 ## How the database works here
 
-Every app on the FA app platform shares **one Postgres server** running on the platform's Coolify host. Each app gets:
+Every app on the FA app platform shares **one Postgres server**, running on the platform's Coolify instance (see the `coolify` skill). Each app gets:
 
 - its **own database** on that server, and
 - its **own login** that can reach only that database.

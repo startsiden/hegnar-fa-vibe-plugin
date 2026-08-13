@@ -13,7 +13,7 @@ decision is hard to reverse later, so get it right before cloning anything.
 
 | Path | Who sees it | Where it runs | Template |
 |---|---|---|---|
-| **JB app** | Journalists only, signed into JournalistBoost | `<name>.apps.journalistboost.ai` — self-serve, live in minutes | `startsiden/vibecode-template` |
+| **JB app** | Journalists only, signed into JournalistBoost | `<name>.apps.journalistboost.ai` — self-serve Coolify, live in minutes | `startsiden/vibecode-template` |
 | **FA app** | Finansavisen readers, public or paywalled | `finansavisen.no/<path>` on OKD — **needs a DevOps deployment**, not self-serve | `startsiden/vibecode-template` |
 | **Backend app** | Nothing visual — an API or service | Not yet defined | ⚠️ **Not available yet** |
 

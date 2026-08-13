@@ -30,6 +30,8 @@ Then start your app with:
 | `add-database` | Store data that survives a redeploy |
 | `publish` | Decides the route: JB app self-serve, or FA app via DevOps |
 | `deploy` | Put a JB app live, and push updates to it |
+| `coolify` | What the platform actually is — Coolify's model, API and quirks |
+| `zephr-to-jb` | Convert an app built for finansavisen.no so it runs on JB |
 
 Stack-specific skills — pages, styling, interactivity, the Zephr header,
 local tooling, saving — stay in each **template's** own `skills/` directory, because

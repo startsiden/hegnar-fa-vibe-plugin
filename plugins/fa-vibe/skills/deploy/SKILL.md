@@ -6,6 +6,11 @@ description: Put a JB app live on the FA app platform, or push an update to one 
 
 Deploys to the FA app platform at `<app-name>.apps.journalistboost.ai`.
 
+The platform is a self-hosted **Coolify** instance. If anything here is
+surprising, or a deploy behaves oddly, read the `coolify` skill — it explains
+what the system actually is, so you can reason about it rather than follow
+steps blindly.
+
 **Only for JB apps.** If this app is served on `finansavisen.no` (`AUTH_MODE=zephr`),
 stop and use the `publish` skill — those are deployed by the platform team and
 nothing here applies.

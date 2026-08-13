@@ -87,7 +87,8 @@ the repo; a per-visitor preference belongs in `localStorage`.
 
 ## Hosting
 
-Deployment target is the FA app platform. Don't propose Vercel, Netlify,
+Deployment target is the FA app platform — a self-hosted Coolify instance on
+Finansavisen's own AWS. See the `coolify` skill for how it works. Don't propose Vercel, Netlify,
 Cloudflare Pages, Heroku, Render, or a personal server. Don't hand-write
 Kubernetes or OKD manifests — FA's newsroom sites run on OKD, apps from these
 templates do not.
