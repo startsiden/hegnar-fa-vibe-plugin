@@ -122,7 +122,7 @@ Never `--global`. Don't touch their machine-wide git config.
 
 ## Step 6 — First save
 
-Run the `save` skill. If the push succeeds, the token and remote are both correct — and you've proved that before any real work exists to lose.
+Run the template's own `save` skill (in the cloned project's `skills/`). If the push succeeds, the token and remote are both correct — and you've proved that before any real work exists to lose.
 
 ## Step 7 — Check their machine
 

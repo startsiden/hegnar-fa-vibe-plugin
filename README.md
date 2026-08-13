@@ -28,11 +28,10 @@ Then start your app with:
 | `working-with-journalists` | Tone, vocabulary, and the platform rules that hold for every template |
 | `new-project` | Start a new app from a template |
 | `add-database` | Store data that survives a redeploy |
-| `save` | Save and publish changes |
-| `publish` | Get it live |
+| `publish` | Get it live — routes JB apps vs FA apps |
 
 Stack-specific skills — pages, styling, interactivity, the Zephr header,
-local tooling — stay in each **template's** own `skills/` directory, because
+local tooling, saving — stay in each **template's** own `skills/` directory, because
 they only make sense for that stack. The plugin holds what's true regardless
 of which template an app came from.
 
