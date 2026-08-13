@@ -40,7 +40,7 @@ Take the answer at face value; they know which system they're building for.
 
 | | JB app | FA app |
 |---|---|---|
-| Login | JournalistBoost, automatic — never build one | Zephr / paywall at the CDN edge |
+| Login | JournalistBoost, automatic — `AUTH_MODE=jb` | Zephr / paywall at the CDN edge — `AUTH_MODE=zephr` |
 | The FA header | Don't add it — Zephr isn't in front of this domain and the markers stay bare | `add-zephr-header` skill |
 | Publishing | Self-serve, minutes | DevOps ticket, wait |
 | Served at | A subdomain root | A path like `/verktoy/<name>`, so the build needs a base path |
@@ -102,6 +102,18 @@ cp .env.example .env
 Fill `GIT_REMOTE` and `GITHUB_PAT` in `.env`, which is already gitignored.
 
 Never echo the token back, never `cat .env`, never put it in a commit message. If you need to check a field, read `.env.example`, not the live file.
+
+## Step 3b — Set the login mode
+
+In `.env`, set `AUTH_MODE` to match the answer from earlier:
+
+- JB app → `AUTH_MODE=jb` (the default; the template's middleware validates the
+  JournalistBoost session)
+- FA app → `AUTH_MODE=zephr` (the middleware stands down; Zephr gates at the
+  edge, and readers have no JB session to check)
+
+This must also be set in the deployed environment, not just locally. Getting it
+wrong doesn't fail loudly — it just refuses everyone.
 
 ## Step 4 — Make it theirs
 

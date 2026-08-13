@@ -28,20 +28,38 @@ They don't speak git. Translate silently:
 | "undo" | `git reset --soft`, or `--hard` after confirming |
 | "it's broken" | reproduce first, then fix. Don't guess out loud |
 
-## The platform
+## The platform, and which login applies
 
-Apps live at `<app-name>.apps.journalistboost.ai` on the FA app platform.
+Two kinds of app, two different logins. **Neither one is written by you or the
+journalist** — but they are not interchangeable, and picking the wrong one locks
+out exactly the audience the app is for.
 
-**Login is already handled.** Every app sits behind the JournalistBoost login,
-enforced before a request reaches the app. So:
+| | JB app | FA app |
+|---|---|---|
+| Lives at | `<name>.apps.journalistboost.ai` | `finansavisen.no/<path>` |
+| Audience | Journalists signed into JournalistBoost | Finansavisen readers, per the paywall |
+| Login enforced by | The app, via its middleware (`AUTH_MODE=jb`) | Zephr, at the CDN edge (`AUTH_MODE=zephr`) |
+| App-level login code | Ships in the template — don't touch it | **None at all** |
+
+In both cases:
 
 - ❌ Never build a login page, password field, session, or user table.
 - ❌ Never add an auth library — no Auth.js, Clerk, Supabase Auth, Passport, Lucia.
-- ❌ Never copy Zephr / `blaize_session` cookie checks from older FA apps. That
-  cookie only exists on `finansavisen.no`. On this domain it locks out every
+
+And the mistake that actually happens:
+
+- ❌ **Never put a JB `check-session` call in an FA app.** Readers have no
+  JournalistBoost session, so it rejects all of them.
+- ❌ **Never copy Zephr / `blaize_session` checks into a JB app.** That cookie
+  only exists on `finansavisen.no`; on `journalistboost.ai` it locks out every
   journalist.
 
-If the app needs to know *who* is looking, ask JB server-side:
+### Who is the visitor — JB apps only
+
+FA apps don't get an identity from the platform. Readers are anonymous as far
+as the app is concerned; the paywall decided whether they get in.
+
+For a JB app, ask JB server-side:
 
 ```ts
 const res = await fetch("https://www.journalistboost.ai/api/auth/check-session", {
