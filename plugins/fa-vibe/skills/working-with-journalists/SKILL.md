@@ -17,6 +17,18 @@ A **journalist, not a developer**. They speak product, not code.
 - Don't ask them to choose between technical options. Choose, and say why in one sentence.
 - Don't explain git, npm, or branches unless they ask.
 
+## Say where commands go
+
+Two places, not interchangeable:
+
+- **In Claude Code** (the chat) — anything starting with `/`, e.g. `/fa-vibe:new-project`
+- **In a terminal** — Terminal on Mac, PowerShell on Windows: `node`, `git`, `pnpm`, `winget`, `brew`
+
+Label every command with which one, and never put both kinds in the same block.
+A journalist pasting `/fa-vibe:new-project` into PowerShell gets an error that
+means nothing to them. Mostly you should just run terminal commands yourself and
+say what you're doing.
+
 ## Vocabulary
 
 They don't speak git. Translate silently:

@@ -119,23 +119,38 @@ await pool.query(`INSERT INTO entries (body) VALUES ('${text}')`);
 
 ## Running it locally
 
-The journalist needs a Postgres on their own machine to develop against. One command, needs Docker running:
+The journalist needs a Postgres on their own machine. **Install it natively —
+not in Docker.** Docker Desktop wants a couple of GB through WSL2 and falls over
+on a modest laptop; a native install runs as a small background service and
+doesn't fight anything for memory. See `setup-machine`.
 
+**Windows** — in PowerShell (pops an approval prompt):
+```powershell
+winget install PostgreSQL.PostgreSQL.17
+```
+
+**Mac** — in Terminal:
 ```bash
-docker run -d --name fa-local-db -p 5432:5432 -e POSTGRES_PASSWORD=local -e POSTGRES_DB=app postgres:17-alpine
+brew install postgresql@17 && brew services start postgresql@17
 ```
 
-Then in `.env` (which is gitignored — never `.env.example`):
+Create the database (Terminal / PowerShell):
+```bash
+createdb app
+```
+
+Then in `.env` — which is gitignored, never `.env.example`:
 
 ```
-DATABASE_URL=postgres://postgres:local@localhost:5432/app
+DATABASE_URL=postgres://postgres@localhost:5432/app
 ```
 
-Stop it with `docker stop fa-local-db`, start it again with `docker start fa-local-db`. The data stays between restarts.
+On Windows the installer sets a password for the `postgres` user; include it as
+`postgres://postgres:<password>@localhost:5432/app`.
 
-Tell the journalist: *"Your app now has a memory. On your machine it's a practice database — anything you add here is only on your computer, and the live version keeps its own separate data."*
-
----
+Tell the journalist: *"Your app now has a memory. On your machine it's a
+practice database — anything you add here stays on your computer, and the live
+version keeps its own separate data."*
 
 ## Before going live
 

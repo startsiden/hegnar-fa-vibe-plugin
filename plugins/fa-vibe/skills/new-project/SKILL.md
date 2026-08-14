@@ -138,6 +138,11 @@ Run the template's own `save` skill (in the cloned project's `skills/`). If the 
 
 ## Step 7 — Check their machine
 
+Run `setup-machine` if anything is missing — Node 22, pnpm, git. **Say where
+every command goes**: `/` commands here in the chat, everything else in Terminal
+(Mac) or PowerShell (Windows). Don't mix the two in one block.
+
+
 Run the template's own `tools-init` skill (in the cloned project's `skills/`): Node 22, pnpm, git, and `pnpm dev` serving `http://localhost:3000`. Don't skip it. Windows machines frequently have stale PATH state after a fresh Node install, and the failure looks like nothing at all.
 
 ## Then

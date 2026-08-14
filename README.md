@@ -8,6 +8,8 @@ template, keeps the app on-brand, and gets it onto the FA app platform at
 
 ## Install
 
+**In Claude Code** (not a terminal — these start with `/`):
+
 ```
 /plugin marketplace add startsiden/fa-vibe-plugin
 /plugin install fa-vibe@fa-vibe
@@ -25,7 +27,8 @@ Then start your app with:
 
 | Skill | For |
 |---|---|
-| `working-with-journalists` | Tone, vocabulary, and the platform rules that hold for every template |
+| `setup-machine` | Node, pnpm, git — and which tools to skip |
+| `working-with-journalists` | Tone, vocabulary, where commands go, platform rules |
 | `new-project` | Start a new app from a template |
 | `add-database` | Store data that survives a redeploy |
 | `publish` | Decides the route: JB app self-serve, or FA app via DevOps |
