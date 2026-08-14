@@ -11,7 +11,7 @@ template, keeps the app on-brand, and gets it onto the FA app platform at
 **In Claude Code** (not a terminal — these start with `/`):
 
 ```
-/plugin marketplace add startsiden/fa-vibe-plugin
+/plugin marketplace add startsiden/hegnar-fa-vibe-plugin
 /plugin install fa-vibe@fa-vibe
 ```
 
