@@ -86,6 +86,37 @@ There is no name field — `email` is the most human thing available.
 "Only certain people should see this" is an allowlist of email addresses in
 config, not a login system.
 
+## What this setup gives up
+
+Deliberate trade-offs, decided with the team. They're not bugs, but they change
+how you should behave.
+
+**Every app receives the journalist's live JournalistBoost session.** The cookie
+is shared across `*.journalistboost.ai`, so it arrives at the app's *server* on
+every request. `HttpOnly` does not prevent this — it stops browser JavaScript
+reading the cookie, not the server that is handed it.
+
+So, in any app:
+
+- ❌ Never log request headers, or a whole request object. That writes live
+  sessions into a log file.
+- ❌ Never forward the cookie anywhere except `www.journalistboost.ai`.
+- ❌ Never put it in an error message, analytics event, or bug report.
+
+**A session cannot be revoked.** Logging out clears the cookie in that browser,
+which ends access there immediately — but the token itself stays valid for up to
+four weeks, and there is no server-side session store to kill. Anyone who copies
+one keeps it. Treat a leaked session as unfixable until it expires, and don't
+create ways for one to leak.
+
+**The deployment token is platform-admin.** See `deploy`. Coolify has no scoped
+tokens, so anyone holding it can reach every app.
+
+**Onboarding someone?** Tell them to type `/fa-vibe:new-project`. Describing an
+idea in plain language does *not* reliably trigger it — measured, not assumed —
+and the failure is silent: they get a confident, working, undeployable app built
+on the wrong stack.
+
 ## Storing data
 
 The container's disk is thrown away on every deploy. Anything written to a file

@@ -30,6 +30,17 @@ no per-repo key. `GET /github-apps` lists sources.
 Auth is a bearer token: `Authorization: Bearer $(cat ~/.fa-vibe/token)`. See the
 `deploy` skill for how it's stored and its scope limits.
 
+### The dashboard sees JB session cookies
+
+`coolify.journalistboost.ai` sits under `journalistboost.ai`, and JB's session
+cookie is scoped `Domain=.journalistboost.ai`. So a journalist's browser attaches
+their live JB session to requests hitting the Coolify dashboard, which has no use
+for it.
+
+Accepted when the domain was chosen. It means: don't enable request-header
+logging on this instance, and if the dashboard ever moves, a host outside
+`journalistboost.ai` removes the exposure entirely.
+
 ## How Coolify models things
 
 ```
